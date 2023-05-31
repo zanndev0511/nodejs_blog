@@ -1,15 +1,16 @@
 const Blog = require("../models/Blog.js");
-
+const { multipleMongooseToObject } = require("../../util/mongoose.js");
 class SiteController {
   // [GET] /
-  index(req, res) {
+  index(req, res, next) {
     Blog.find({})
       .then((blogs) => {
-        res.json(blogs);
+        res.render("home", {
+          title: "Test title",
+          blogs: multipleMongooseToObject(blogs),
+        });
       })
-      .catch((err) => {
-        res.status(400).json({ error: "ERROR!" });
-      });
+      .catch(next);
     // res.render('home');
   }
   // [GET] /search
