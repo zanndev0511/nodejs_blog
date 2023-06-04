@@ -9,5 +9,17 @@ class BlogController {
       })
       .catch(next);
   }
+  // [GET] /blogs/create
+  create(req, res, next) {
+    res.render("blogs/create");
+  }
+  // [POST] /blogs/store
+  store(req, res, next) {
+    const blog = new Blog(req.body);
+    blog
+      .save()
+      .then(() => res.redirect("/"))
+      .catch((error) => {});
+  }
 }
 module.exports = new BlogController();
