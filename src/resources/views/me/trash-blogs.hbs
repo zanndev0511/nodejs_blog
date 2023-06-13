@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div>
-    <h3>My Blogs</h3>
-    <a href="/me/trash/blogs">Recycle Pin</a>
+    <a href="/me/stored/blogs">List of blogs</a>
+    <h3>Blogs deleted</h3>
   </div>
 
   <table class="table mt-4">
@@ -22,15 +22,15 @@
         <td>{{this.description}}</td>
         <td>{{this.createdAt}}</td>
         <td>
-          <a type="button" href="/blogs/{{this._id}}/edit" class="btn btn-link">Edit</a>
+          <a type="button" href="" class="btn btn-link btn-restore" data-bs-id={{this._id}}>Restore</a>
           <a type="button" href="" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#delete-blog-modal"
-            data-bs-id="{{this._id}}">Delete</a>
+            data-bs-id="{{this._id}}">Permanently deleted</a>
         </td>
       </tr>
       {{else}}
         <tr>
-          <td colspan="5" class="text-center">You have not posted any Blog yet.
-            <a href="/blogs/create"> Post Blog</a>
+          <td colspan="5" class="text-center">The trash is empty.
+            <a href="/me/stored/blogs"> List of blogs</a>
           </td>
         </tr>
       {{/each}}
@@ -46,10 +46,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Do you want to delete it?
+       This action is not reversible. Are you sure delete?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="btn-delete-blog" >Delete</button>
+        <button type="button" class="btn btn-danger" id="btn-delete-blog" >Permanently Deleted</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -57,25 +57,36 @@
 </div>
 
  <form method="POST" name="delete-blog-form">
- 
  </form>
+ <form method="POST" name="restore-blog-form"></form>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var blogId;
     var deleteForm = document.forms['delete-blog-form']
+    var restoreForm = document.forms['restore-blog-form']
     var btnDeleteBlog = document.getElementById('btn-delete-blog')
+    var restoreBtn = $('.btn-restore')
     const deleteblogmodal = document.getElementById('delete-blog-modal');
     if (deleteblogmodal) {
       deleteblogmodal.addEventListener('show.bs.modal', event => {
         const button = event.relatedTarget;
         blogId = button.getAttribute('data-bs-id');
-        console.log(id);
+        
       })
     }
     
     btnDeleteBlog.onclick = function () {
-      deleteForm.action = '/blogs/' + blogId+ '?_method=DELETE';
+      deleteForm.action = '/blogs/' + blogId+ '/force?_method=DELETE';
       deleteForm.submit();
     }
+   
+    //Restore click
+    restoreBtn.click(function(e){
+      e.preventDefault();
+      var idBlog = $(this).attr('data-bs-id')
+      restoreForm.action = '/blogs/' + idBlog + '/restore?_method=PATCH';
+      restoreForm.submit();
+    })
+    
   })
 </script>

@@ -34,14 +34,42 @@ class BlogController {
     const blog = new Blog(req.body);
     blog
       .save()
-      .then(() => res.redirect("/"))
+      .then(() => res.redirect("/me/stored/blogs"))
       .catch((error) => {});
   }
   // [DELETE] /blogs/:id
   destroy(req, res, next) {
+    Blog.delete({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+  // [DELETE] /blogs/:id/force
+  forceDestroy(req, res, next) {
     Blog.deleteOne({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
+  // [PATCH] /blogs/:id/restore
+  restore(req, res, next) {
+    Blog.restore({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+    Blog.findById(req.params.id)
+      .then((document) => {
+        if (!document) {
+          throw new Error("Document not found");
+        }
+        document.deleted = false;
+        return document.save();
+      })
+      .then((updatedDocument) => {
+        res.redirect("back");
+      })
+      .catch((error) => {
+        // Xử lý lỗi
+        next(error);
+      });
+  }
+
 }
 module.exports = new BlogController();

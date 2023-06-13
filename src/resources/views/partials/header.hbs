@@ -1,57 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container"><a class="navbar-brand" href="/">MyWeb</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      {{! <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span></a>
-      </li> }}
-      {{!-- <li class="nav-item">
-        <a class="nav-link" href="/blogs/create">Post</a>
-      </li> --}}
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          role="button"
-          data-toggle="dropdown"
-          aria-expanded="false"
-        >
-        <img class="user-avt" src="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"/>
+  <div class="container">
+    <a class="navbar-brand" href="/">MyWeb</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+        
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="user-avt" src="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"/>
           Giang Truong
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/blogs/create">Post</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/me/stored/blogs">My Blogs</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Đăng xuất</a>
-        </div>
-      </li>
-    </ul>
-    {{!-- <form class="form-inline my-2 my-lg-0">
-      <input
-        class="form-control mr-sm-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      /> --}}
-      {{! <button
-        class="btn btn-outline-success my-2 my-sm-0"
-        type="submit"
-      >Search</button> }}
-    </form>
-  </div></div>
+          </a>
+          
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/blogs/create">Post</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/me/stored/blogs">My Blogs</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+      
+      
+      {{!-- <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form> --}}
+    </div>
+  </div>
 </nav>
