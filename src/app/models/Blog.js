@@ -15,5 +15,5 @@ const Blog = new Schema(
 );
 // Add plugins
 mongoose.plugin(slug);
-Blog.plugin(mongooseDelete, {deletedAt : false,  overrideMethods: "all",  });
+Blog.plugin(mongooseDelete, {deletedAt : true,  overrideMethods: "all",  });
 module.exports = mongoose.model("Blog", Blog);

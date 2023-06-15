@@ -52,7 +52,8 @@ class BlogController {
   // [PATCH] /blogs/:id/restore
   restore(req, res, next) {
     Blog.restore({ _id: req.params.id })
-      .then(() => res.redirect("back"))
+      .then(() => res.redirect("back"),
+      )
       .catch(next);
     Blog.findById(req.params.id)
       .then((document) => {
