@@ -35,7 +35,7 @@ class BlogController {
     blog
       .save()
       .then(() => res.redirect("/me/stored/blogs"))
-      .catch((error) => {});
+      .catch((error) => { });
   }
   // [DELETE] /blogs/:id
   destroy(req, res, next) {
@@ -52,24 +52,26 @@ class BlogController {
   // [PATCH] /blogs/:id/restore
   restore(req, res, next) {
     Blog.restore({ _id: req.params.id })
-      .then(() => res.redirect("back"),
-      )
+      .then(() => {
+        // Thêm dòng mã để cập nhật trường deleted thành false
+        return Blog.updateOne({ _id: req.params.id }, { deleted: false });
+      })
+      .then(() => res.redirect('back'))
       .catch(next);
-    Blog.findById(req.params.id)
-      .then((document) => {
-        if (!document) {
-          throw new Error("Document not found");
-        }
-        document.deleted = false;
-        return document.save();
-      })
-      .then((updatedDocument) => {
-        res.redirect("back");
-      })
-      .catch((error) => {
-        // Xử lý lỗi
-        next(error);
-      });
+
+
+  }
+  // [POST] /blogs/handle-form-actions
+  handleFormActions(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Blog.delete({ _id: { $in: req.body.blogIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      default:
+        res.json({ message: 'Action invalid!' });
+    }
   }
 
 }
