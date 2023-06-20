@@ -46,3 +46,9 @@ route(app);
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+const PORT = process.env.PORT
+
+app.listen(PORT, () => {
+  console.log('Server is running in port '+ PORT);
+})
