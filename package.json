@@ -39,6 +39,7 @@
     "mongoose": "^6.10.1",
     "mongoose-delete": "^1.0.1",
     "mongoose-slug-generator": "^1.0.4",
+    "node": "^18.14.0",
     "node-sass": "^8.0.0"
   },
   "devDependencies": {
